@@ -34,8 +34,23 @@ const insertTalker = async (talker) => {
   return newTalker;
 };
 
+const updateTalker = async (id, content) => {
+  const talkersList = await getAllTalkers();
+  const newTalkersList = talkersList.map((e) => {
+    if (e.id === Number(id)) {
+      return { ...e, ...content };
+    }
+    return e;
+  });
+
+  await saveTalkers(newTalkersList);
+
+  return newTalkersList.find((e) => e.id === Number(id));
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   insertTalker,
+  updateTalker,
 };

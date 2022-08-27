@@ -5,7 +5,7 @@ const rateValidate = require('../middlewares/rateValidate');
 const talkValidate = require('../middlewares/talkValidate');
 const tokenValidate = require('../middlewares/tokenValidate');
 const watchValidate = require('../middlewares/watchValidate');
-const { getAllTalkers, getTalkerById, insertTalker } = require('../utils');
+const { getAllTalkers, getTalkerById, insertTalker, updateTalker } = require('../utils');
 
 const talkerRouter = Router();
 
@@ -31,6 +31,15 @@ talkerRouter.get('/:id/', async (req, res) => {
   }
 
   return res.status(200).json(talker);
+});
+
+talkerRouter.put('/:id', tokenValidate, nameValidate,
+  ageValidate, talkValidate, watchValidate, rateValidate, async (req, res) => {
+  const { id } = req.params;
+
+  const response = await updateTalker(id, req.body);
+
+  return res.status(200).json(response);
 });
 
 module.exports = talkerRouter;

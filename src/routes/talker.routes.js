@@ -37,7 +37,7 @@ talkerRouter.put('/:id', tokenValidate, nameValidate,
   ageValidate, talkValidate, watchValidate, rateValidate, async (req, res) => {
   const { id } = req.params;
 
-  const response = await updateTalker(id, req.body);
+  const response = await updateTalker(Number(id), req.body);
 
   return res.status(200).json(response);
 });

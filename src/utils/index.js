@@ -36,16 +36,18 @@ const insertTalker = async (talker) => {
 
 const updateTalker = async (id, content) => {
   const talkersList = await getAllTalkers();
+
+  const talker = { id, ...content };
   const newTalkersList = talkersList.map((e) => {
-    if (e.id === Number(id)) {
-      return { ...e, ...content };
+    if (e.id === id) {
+      return talker;
     }
     return e;
   });
 
   await saveTalkers(newTalkersList);
 
-  return newTalkersList.find((e) => e.id === Number(id));
+  return talker;
 };
 
 module.exports = {

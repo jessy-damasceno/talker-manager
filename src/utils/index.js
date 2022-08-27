@@ -50,9 +50,16 @@ const updateTalker = async (id, content) => {
   return talker;
 };
 
+const deleteTalker = async (id) => {
+  const talkersList = await getAllTalkers();
+
+  await saveTalkers(talkersList.filter((t) => t.id !== id));
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   insertTalker,
   updateTalker,
+  deleteTalker,
 };

@@ -5,7 +5,8 @@ const rateValidate = require('../middlewares/rateValidate');
 const talkValidate = require('../middlewares/talkValidate');
 const tokenValidate = require('../middlewares/tokenValidate');
 const watchValidate = require('../middlewares/watchValidate');
-const { getAllTalkers, getTalkerById, insertTalker, updateTalker } = require('../utils');
+const { getAllTalkers, getTalkerById,
+  insertTalker, updateTalker, deleteTalker } = require('../utils');
 
 const talkerRouter = Router();
 
@@ -40,6 +41,14 @@ talkerRouter.put('/:id', tokenValidate, nameValidate,
   const response = await updateTalker(Number(id), req.body);
 
   return res.status(200).json(response);
+});
+
+talkerRouter.delete('/:id', tokenValidate, async (req, res) => {
+  const { id } = req.params;
+
+  await deleteTalker(Number(id));
+
+  return res.sendStatus(204);
 });
 
 module.exports = talkerRouter;

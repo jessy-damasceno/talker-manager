@@ -15,6 +15,18 @@ talkerRouter.get('/', async (_req, res) => {
   return res.status(200).json(talkersList);
 });
 
+talkerRouter.get('/search', tokenValidate, async (req, res) => {
+  const { q } = req.query;
+  const talkersList = await getAllTalkers();
+
+  if (!q) {
+    return res.status(200).json(talkersList);
+  }
+
+  return res.status(200).json(talkersList
+    .filter(({ name }) => name.toLowerCase().includes(q.toLowerCase())));
+});
+
 talkerRouter.post('/', tokenValidate, nameValidate, ageValidate,
   talkValidate, watchValidate, rateValidate, async (req, res) => {
   const newTalker = req.body;

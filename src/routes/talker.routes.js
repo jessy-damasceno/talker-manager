@@ -1,5 +1,7 @@
 const { Router } = require('express');
+const ageValidate = require('../middlewares/ageValidate');
 const nameValidate = require('../middlewares/nameValidate');
+const talkValidate = require('../middlewares/talkValidate');
 const tokenValidate = require('../middlewares/tokenValidate');
 const { getAllTalkers, getTalkerById, insertTalker } = require('../utils');
 
@@ -10,7 +12,7 @@ talkerRouter.get('/', async (_req, res) => {
   return res.status(200).json(talkersList);
 });
 
-talkerRouter.post('/', tokenValidate, nameValidate, async (req, res) => {
+talkerRouter.post('/', tokenValidate, nameValidate, ageValidate, talkValidate, async (req, res) => {
   const newTalker = req.body;
   const response = await insertTalker(newTalker);
 

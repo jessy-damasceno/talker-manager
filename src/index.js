@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const talkerRouter = require('./routes/talker.routes');
 const loginRouter = require('./routes/login.routes');
+const emailValidate = require('./middlewares/emailValidate');
+const passwordValidate = require('./middlewares/passwordValidate');
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,7 +12,7 @@ app.use(bodyParser.json());
 app.use('/talker', talkerRouter);
 
 // Use route /login -- talker.router.js
-app.use('/login', loginRouter);
+app.use('/login', emailValidate, passwordValidate, loginRouter);
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';

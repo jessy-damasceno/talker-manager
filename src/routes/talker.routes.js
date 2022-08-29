@@ -60,7 +60,7 @@ talkerRouter.delete('/:id', tokenValidate, async (req, res) => {
 
   await deleteTalker(Number(id));
 
-  return res.sendStatus(204);
+  return res.send(204).end();
 });
 
 module.exports = talkerRouter;

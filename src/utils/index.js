@@ -28,7 +28,6 @@ const insertTalker = async (talker) => {
 
   newTalker.id = talkersList.length + 1;
   talkersList.push(newTalker);
-  console.log(talkersList);
   await saveTalkers(talkersList);
 
   return newTalker;
